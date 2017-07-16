@@ -1,6 +1,6 @@
 # [1] Define a Document class that has 3 attributes (author, title, content)
       #add getter and setter methods (hint  - attr_accessor)
-      # Initializer function should be like this: initialize(attributes={})
+      #Initializer function should be like this: initialize(attributes={})
 
 # [2] Add an addition function that returns a new document with the concatenation
 # of the caller and passed document content. (title and author should be the caller's)
@@ -15,12 +15,35 @@
 
 
 class Document
+	attr_accessor :author
+	attr_accessor :title
+	attr_accessor :content
+
+	def initialize(options = {})
+		self.author = options[:author]
+		self.title = options[:title]
+		self.content = options[:content]
+    end
+
+    def +(b)
+    	@author=self.author 
+    	@title=self.title
+  	 	 if b.is_a? String 
+  	 	 self.content.concat(" ").concat(b)
+  	 	elsif b.instance_of? Document 	
+		 self.content.concat(" ").concat(b.content)
+		 end		   
+    return self	
+   end
 end
+
+
 
 
 # These examples should work
 a=Document.new(:author => "someone", :title => "my book", :content => "this is the content of my book")
 b=Document.new(:author => "someone", :title => "my book", :content => "and so is this.")
+
 
 add_content = a + b
 puts add_content.content
