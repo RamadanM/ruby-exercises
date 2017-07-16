@@ -15,15 +15,42 @@
 # do something like this: document.replace_book('pen') where book is the old word
 # and pen is the new word. This should work on any word (not just book).
 # hint:  'method_missing'
+	require "time"
 
-require 'time'
+	module Generic
 
-module Generic
-   
+		def current_date
+			t = Time.new
+		    t.strftime("%m/%d/%Y") 
+		end
+
+		def title_with_date
+			self.title.concat(" " + current_date)
+		end
+	end
+
+class Document 
+	include Generic
+    attr_accessor :author
+	attr_accessor :title
+	attr_accessor :content
+ 
+	def initialize(options = {})
+		self.author = options[:author]
+		self.title = options[:title]
+		self.content = options[:content]
+   end
+
+
 end
 
+a=Document.new(:author => "someone", :title => "my book", :content => "this is the content of my book")
+puts a.current_date
+puts a.title_with_date
 
-class Document
-    
-end
+
+
+
+
+
 
